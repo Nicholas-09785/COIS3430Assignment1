@@ -1,13 +1,16 @@
+/* entire body will be a flexbox */
 body {
 	display:flex;
 	flex-direction:column;
     background-color: mediumaquamarine;
 }
 
+/* All sentences except for the startTitle container will have each letter slightly separated */
 div:not(#startTitle) {
     letter-spacing: 0.005em;
 }
 
+/* header will be a flexbox */
 header {
     display: flex;
     justify-content: center;
@@ -15,6 +18,7 @@ header {
     padding: 2.5em 0em;
 }
 
+/* header h1 and h2 will have following properties */
 header h1, header h2 {
     color: darkgoldenrod;
     font-family: "Georgia", "Times New Roman", serif;
@@ -22,6 +26,7 @@ header h1, header h2 {
     font-size: 3em;
 }
 
+/* Everything inside main will be under the conditions of a flexbox */
 main {
     display: flex;
     justify-content: center;
@@ -30,11 +35,13 @@ main {
     padding: 2.5em 0em;
 }
 
+/* All paragraphs have following font-family, which works well with the preceding serif font */
 main p {
     font-family: "Arial", "Helvetica", sans-serif;
     font-size: 1.25em;
 }
 
+/* form in startForm container will have these properties */
 #startForm form {
     display: flex;
     justify-content: center;
@@ -43,6 +50,7 @@ main p {
     gap: 1em;
 }
 
+/* All button inputs will have following properties, for text and padding */
 #startForm form label {
     font-family: "Arial", "Helvetica", sans-serif;
     font-size: 1.25em;
@@ -63,6 +71,7 @@ form button {
     padding: 0.245em 1em;
 }
 
+/* form under the difficultySelection container will have slightly different properties */
 #difficultySelection form {
     display: flex;
     justify-content: center;
@@ -71,16 +80,20 @@ form button {
     gap: 2em;
 }
 
+/* If user hovers over any button, it will have a colored backround and cursor */
 form button:hover {
     background-color: goldenrod;
     cursor: pointer;
 }
 
+/* navigation will always be displayed as a flexbox */
 nav {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
+/* Following coloring used for text if user won or lost */
 
 #win {
     color: green;
@@ -89,6 +102,8 @@ nav {
 #lose {
     color: red;
 }
+
+/* Following css shows properties that the tables will show on scores.php */
 
 table {
     border-collapse: collapse;
