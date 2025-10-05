@@ -22,3 +22,4 @@ function connectdb()
 
   return $pdo;
 }
+?>
