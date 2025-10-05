@@ -1,7 +1,7 @@
 body {
 	display:flex;
 	flex-direction:column;
-    background-color: red;
+    background-color: mediumaquamarine;
 }
 
 div:not(#startTitle) {
@@ -12,7 +12,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 5em 0em;
+    padding: 2.5em 0em;
 }
 
 header h1, header h2 {
@@ -27,6 +27,7 @@ main {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    padding: 2.5em 0em;
 }
 
 main p {
@@ -75,3 +76,30 @@ form button:hover {
     cursor: pointer;
 }
 
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#win {
+    color: green;
+}
+
+#lose {
+    color: red;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 1em;
+    caption-side: bottom;
+    table-layout: fixed;
+}
+
+th, td {
+    border: 0.2em solid purple;
+    padding: 1em;
+    text-align: left;
+    font-family: "Arial", "Helvetica", sans-serif;
+}

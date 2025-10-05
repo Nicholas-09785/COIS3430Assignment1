@@ -36,6 +36,7 @@ if ($restart != 0) {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>COIS 3430 Assignment 1 Scores</title>
+    <link rel="stylesheet" href="./styles/main.css">
 </head>
 
 <body>
@@ -43,9 +44,17 @@ if ($restart != 0) {
     <header>
         <h1>Score Table</h1>
     </header>
+    <nav>
+        <!-- Form for try again button -->
+        <div id="scoreTryAgain">
+            <form method="post" novalidate>
+                <button id="tryAgain" type="tryAgain" name="tryAgain">Try again</button>
+            </form>
+        </div>
+    </nav>
     <main>
         <div id="easyMode">
-            <p>Easy</p>
+            <p>Easy:</p>
             <table>
                 <thead>
                     <th>Username</th>
@@ -58,18 +67,20 @@ if ($restart != 0) {
                     <!-- following foreach loop iterates through data queried inside queriedEasy, displaying all the data
                          inside the following sections appropriately -->
                     <?php foreach ($queriedEasy as $easy) : ?>
-                        <td><?= $easy['username'] ?></td>
-                        <td><?= $easy['result'] ?></td>
-                        <td><?= $easy['word'] ?></td>
-                        <td><?= $easy['score'] ?></td>
-                        <td><?= $easy['play_date'] ?></td>
+                        <tr>
+                            <td><?= $easy['username'] ?></td>
+                            <td><?= $easy['result'] ?></td>
+                            <td><?= $easy['word'] ?></td>
+                            <td><?= $easy['score'] ?></td>
+                            <td><?= $easy['play_date'] ?></td>
+                        </tr>
                     <?php endforeach ?>
                 </tbody>
             </table>
         </div>
         <!-- The next to sections are similar to the previous, but are for the medium and hard difficulties -->
         <div id="mediumMode">
-            <p>Medium</p>
+            <p>Medium:</p>
             <table>
                 <thead>
                     <th>Username</th>
@@ -80,17 +91,19 @@ if ($restart != 0) {
                 </thead>
                 <tbody>
                     <?php foreach ($queriedMed as $medium) : ?>
-                        <td><?= $medium['username'] ?></td>
-                        <td><?= $medium['result'] ?></td>
-                        <td><?= $medium['word'] ?></td>
-                        <td><?= $medium['score'] ?></td>
-                        <td><?= $medium['play_date'] ?></td>
+                        <tr>
+                            <td><?= $medium['username'] ?></td>
+                            <td><?= $medium['result'] ?></td>
+                            <td><?= $medium['word'] ?></td>
+                            <td><?= $medium['score'] ?></td>
+                            <td><?= $medium['play_date'] ?></td>
+                        </tr>
                     <?php endforeach ?>
                 </tbody>
             </table>
         </div>
         <div id="hardMode">
-            <p>Hard</p>
+            <p>Hard:</p>
             <table>
                 <thead>
                     <th>Username</th>
@@ -101,22 +114,18 @@ if ($restart != 0) {
                 </thead>
                 <tbody>
                     <?php foreach ($queriedHard as $hard) : ?>
-                        <td><?= $hard['username'] ?></td>
-                        <td><?= $hard['result'] ?></td>
-                        <td><?= $hard['word'] ?></td>
-                        <td><?= $hard['score'] ?></td>
-                        <td><?= $hard['play_date'] ?></td>
+                        <tr>
+                            <td><?= $hard['username'] ?></td>
+                            <td><?= $hard['result'] ?></td>
+                            <td><?= $hard['word'] ?></td>
+                            <td><?= $hard['score'] ?></td>
+                            <td><?= $hard['play_date'] ?></td>
+                        </tr>
                     <?php endforeach ?>
                 </tbody>
             </table>
         </div>
     </main>
-    <footer>
-        <!-- Form for try again button -->
-        <form method="post" novalidate>
-            <button id="tryAgain" type="tryAgain" name="tryAgain">Try again</button>
-        </form>
-    </footer>
 </body>
 
 </html>

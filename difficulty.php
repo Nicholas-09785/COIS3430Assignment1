@@ -13,8 +13,6 @@
 -->
 
 <?php
-include "./includes/library.php"; // Include database
-$pdo = connectdb(); // Declare and initialize pdo as value from database function
 
 // Declare and initialize easy, medium, and hard as their respective buttons
 $easy = $_POST['easy'] ?? 0;
@@ -28,36 +26,16 @@ $words = array(); // Declare and initialize words as empty array for use later
 if ($easy != 0) {
     $difficulty = "easy"; // Difficulty is easy
 
-    // Create query variable to store query to be used for retrieving words from sql where difficulty is easy
-    $query = "select word from cois3430_assn1_words where difficulty = 'easy'";
-    $queried = $pdo->query($query); // queried is return value of the previous query
+    // word holds return value of function QueryData, where difficulty is passed for it 
+    $word = QueryData($difficulty);
 
-    $words = $queried->fetchAll(); // words now holds the entire fetch from queried
-
-    shuffle($words); // Randomly shuffle words array
-    $word = $words[0]; // Choose the random word of words[0] and store it inside $word
-
-    // medium and hard buttons perform similarly, but use medium and hard values for difficulty
+    // medium and hard buttons perform similarly, but use medium and hard values for the variable difficulty
 } elseif ($medium != 0) {
     $difficulty = "medium";
-
-    $query = "select word from cois3430_assn1_words where difficulty = 'medium'";
-    $queried = $pdo->query($query);
-
-    $words = $queried->fetchAll();
-    
-    shuffle($words);
-    $word = $words[0];
+    $word = QueryData($difficulty);    
 } elseif ($hard != 0) {
     $difficulty = "hard";
-
-    $query = "select word from cois3430_assn1_words where difficulty = 'hard'";
-    $queried = $pdo->query($query);
-
-    $words = $queried->fetchAll();
-    
-    shuffle($words);
-    $word = $words[0];
+    $words = QueryData($difficulty);
 }
 
 // If word is not null and session objects word, blanks, difficulty, tries, guessed, count, and store don't exists, 
@@ -82,6 +60,23 @@ if (isset($word) && !(isset($_SESSION['word']) && isset($_SESSION['blanks']) && 
     // Switch pages
     header('Location: play.php');
     exit();
+}
+
+// Function QueryData created for use when user hits difficulty buttons
+function QueryData($dif) {
+    include "./includes/library.php"; // Include database
+    $pdo = connectdb(); // Declare and initialize pdo as value from database function
+    
+    // Create query variable to store query to be used for retrieving words from sql where difficulty is parameter dif
+    $query = "select word from cois3430_assn1_words where difficulty = '" . $dif . "'";
+    $queried = $pdo->query($query); // queried is return value of the previous query
+
+    $words = $queried->fetchAll(); // words now holds the entire fetch from queried
+
+    shuffle($words); // Randomly shuffle words array
+    $word = $words[0]; // Choose the random word of words[0] and store it inside $word
+    
+    return $word; // return word
 }
 ?>
 

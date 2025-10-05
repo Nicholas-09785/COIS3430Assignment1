@@ -77,9 +77,10 @@ if ($ansButton != 0 && strlen($guess) != 0) {
 
     // Move the letter to the section that tells the user what letters they have already guessed
     array_push($_SESSION['guessed'], $partGuess);
+}
 
 // If the remaining number of tries is less than or equal to 0, set lose to true and calculate score accordingly
-} elseif ($_SESSION['tries'] <= 0) {
+if ($_SESSION['tries'] <= 0) {
     $lose = true;
     $_SESSION['score'] = ($_SESSION['count'] * 5) + ($_SESSION['tries'] * 10);
 }
@@ -125,12 +126,12 @@ if ($win || $lose) {
     <nav>
         <!-- Form holds Try again and Scores buttons that only appear when the game is over
              They were put into the nav section because they are to take the user to different pages -->
-        <form method="post" novalidate>
-            <div id="restartAndScores">
-                <button id="tryAgain" type="tryAgain" name="tryAgain" <?= $win || $lose ? '' : 'hidden' ?>>Try again</button>
-                <button id="scores" type="scores" name="scores" <?= $win || $lose ? '' : 'hidden' ?>>Scores</button>
-            </div>
-        </form>
+        <div id="restartAndScores" <?= $win || $lose ? '' : 'hidden' ?>>
+            <form method="post" novalidate>
+                <button id="tryAgain" type="tryAgain" name="tryAgain">Try again</button>
+                <button id="scores" type="scores" name="scores">Scores</button>
+            </form>
+        </div>
     </nav>
     <main>
         <p>Word: <?= $word['word'] ?> </p>
@@ -161,7 +162,6 @@ if ($win || $lose) {
 
                 <button id="ansButton" type="ansButton" name="ansButton">Full word</button>
             </div>
-            <br>
             <div id="partWord" <?= $win || $lose ? 'hidden' : '' ?>>
                 <label for="partGuess">Part word:</label>
                 <input type="text" name="partGuess" id="partGuess" value="<?=$partGuess ?>" maxlength=1 />
