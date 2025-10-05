@@ -5,20 +5,24 @@ Access data with for loop inside tbody, where maximum size of loop must be 10
 Use query, prepared unneccessary
 -->
 
+
 <?php
 include "./includes/library.php";
 $pdo = connectdb();
 
+// following query variables are used for selecting appropriate data from database
 $queryEasy = "select username, result, word, score, play_date from cois3430_assn1_scores where difficulty = 'easy' order by play_date desc limit 10";
 $queryMed = "select username, result, word, score, play_date from cois3430_assn1_scores where difficulty = 'medium' order by play_date desc limit 10";
 $queryHard = "select username, result, word, score, play_date from cois3430_assn1_scores where difficulty = 'hard' order by play_date desc limit 10";
 
+// following query variables store the data queried by the previous query statements
 $queriedEasy = $pdo->query($queryEasy);
 $queriedMed = $pdo->query($queryMed);
 $queriedHard = $pdo->query($queryHard);
 
-$restart = $_POST['tryAgain'] ?? 0;
+$restart = $_POST['tryAgain'] ?? 0; // used for Try again button
 
+// If user hits restart, then redirect user to difficulty selection page
 if ($restart != 0) {
     header('Location: difficulty.php'); 
     exit();
@@ -35,10 +39,10 @@ if ($restart != 0) {
 </head>
 
 <body>
+    <!-- header used to title the page as Score Table -->
     <header>
         <h1>Score Table</h1>
     </header>
-    <nav></nav>
     <main>
         <div id="easyMode">
             <p>Easy</p>
@@ -51,6 +55,8 @@ if ($restart != 0) {
                     <th>Date Played</th>
                 </thead>
                 <tbody>
+                    <!-- following foreach loop iterates through data queried inside queriedEasy, displaying all the data
+                         inside the following sections appropriately -->
                     <?php foreach ($queriedEasy as $easy) : ?>
                         <td><?= $easy['username'] ?></td>
                         <td><?= $easy['result'] ?></td>
@@ -61,6 +67,7 @@ if ($restart != 0) {
                 </tbody>
             </table>
         </div>
+        <!-- The next to sections are similar to the previous, but are for the medium and hard difficulties -->
         <div id="mediumMode">
             <p>Medium</p>
             <table>
@@ -105,6 +112,7 @@ if ($restart != 0) {
         </div>
     </main>
     <footer>
+        <!-- Form for try again button -->
         <form method="post" novalidate>
             <button id="tryAgain" type="tryAgain" name="tryAgain">Try again</button>
         </form>

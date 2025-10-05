@@ -13,63 +13,76 @@
 -->
 
 <?php
-    include "./includes/library.php";
-    $pdo = connectdb();
+include "./includes/library.php"; // Include database
+$pdo = connectdb(); // Declare and initialize pdo as value from database function
 
-    $easy = $_POST['easy'] ?? 0;
-    $medium = $_POST['medium'] ?? 0;
-    $hard = $_POST['hard'] ?? 0;
-    $difficulty = "";
+// Declare and initialize easy, medium, and hard as their respective buttons
+$easy = $_POST['easy'] ?? 0;
+$medium = $_POST['medium'] ?? 0;
+$hard = $_POST['hard'] ?? 0;
+$difficulty = ""; // Declare and initialize difficulty as empty string for use later
 
-    $words = array();
+$words = array(); // Declare and initialize words as empty array for use later
+
+// If user presses easy button
+if ($easy != 0) {
+    $difficulty = "easy"; // Difficulty is easy
+
+    // Create query variable to store query to be used for retrieving words from sql where difficulty is easy
+    $query = "select word from cois3430_assn1_words where difficulty = 'easy'";
+    $queried = $pdo->query($query); // queried is return value of the previous query
+
+    $words = $queried->fetchAll(); // words now holds the entire fetch from queried
+
+    shuffle($words); // Randomly shuffle words array
+    $word = $words[0]; // Choose the random word of words[0] and store it inside $word
+
+    // medium and hard buttons perform similarly, but use medium and hard values for difficulty
+} elseif ($medium != 0) {
+    $difficulty = "medium";
+
+    $query = "select word from cois3430_assn1_words where difficulty = 'medium'";
+    $queried = $pdo->query($query);
+
+    $words = $queried->fetchAll();
     
-    if ($easy != 0) {
-        $difficulty = "easy";
+    shuffle($words);
+    $word = $words[0];
+} elseif ($hard != 0) {
+    $difficulty = "hard";
 
-        $query = "select word from cois3430_assn1_words where difficulty = 'easy'";
-        $queried = $pdo->query($query);
+    $query = "select word from cois3430_assn1_words where difficulty = 'hard'";
+    $queried = $pdo->query($query);
 
-        $words = $queried->fetchAll();
+    $words = $queried->fetchAll();
+    
+    shuffle($words);
+    $word = $words[0];
+}
 
-        shuffle($words);
-        $word = $words[0];
-    } elseif ($medium != 0) {
-        $difficulty = "medium";
-
-        $query = "select word from cois3430_assn1_words where difficulty = 'medium'";
-        $queried = $pdo->query($query);
-
-        $words = $queried->fetchAll();
-        
-        shuffle($words);
-        $word = $words[0];
-    } elseif ($hard != 0) {
-        $difficulty = "hard";
-
-        $query = "select word from cois3430_assn1_words where difficulty = 'hard'";
-        $queried = $pdo->query($query);
-
-        $words = $queried->fetchAll();
-        
-        shuffle($words);
-        $word = $words[0];
+// If word is not null and session objects word, blanks, difficulty, tries, guessed, count, and store don't exists, 
+// start session and create them
+if (isset($word) && !(isset($_SESSION['word']) && isset($_SESSION['blanks']) && isset($_SESSION['difficulty']) && isset($_SESSION['tries']) && isset($_SESSION['guessed']) && isset($_SESSION['count']) && isset($_SESSION['store']))) {
+    session_start();
+    $_SESSION['word'] = $word; // word object holds the word variable
+    $_SESSION['blanks'] = str_split($word['word']); // Declare and initialize blanks object as the string split of the word
+    
+    // For loop goes through blanks and initializes each index as _ to be used in hangman game
+    for ($i = 0; $i < sizeof($_SESSION['blanks']); $i++) {
+        $_SESSION['blanks'][$i] = '_';
     }
+    $_SESSION['difficulty'] = $difficulty; // difficulty object holds difficulty variable
+    $_SESSION['tries'] = 6; // tries object as 6 indicates that for any word, the user only has 6 tries
+    $_SESSION['guessed'] = array(); // guessed holds empty array, to be used in next page
 
-    if (isset($word) && !isset($_SESSION['word'])) {
-        session_start();
-        $_SESSION['word'] = $word;
-        $_SESSION['blanks'] = str_split($word['word']);
-        for ($i = 0; $i < sizeof($_SESSION['blanks']); $i++) {
-            $_SESSION['blanks'][$i] = '_';
-        }
-        $_SESSION['difficulty'] = $difficulty;
-        $_SESSION['tries'] = 6;
-        $_SESSION['guessed'] = array();
-        $_SESSION['count'] = 0;
-        $_SESSION['score'] = 0;
-        header('Location: play.php');
-        exit();
-    }
+    // count, store hold 0 and are to be incremented later
+    $_SESSION['count'] = 0;
+    $_SESSION['score'] = 0;
+
+    // Switch pages
+    header('Location: play.php');
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -86,11 +99,9 @@
     <header>
         <h2>Please select difficulty</h2>
     </header>
-    <nav>
-        
-    </nav>
     <main>
         <div id="difficultySelection">
+            <!-- Form used to select difficulties -->
             <form method="post" novalidate>
                 <button id="easy" type="easy" name="easy">Easy</button>
                 <button id="medium" type="medium" name="medium">Medium</button>
@@ -98,9 +109,6 @@
             </form>
         </div>
     </main>
-    <footer>
-
-    </footer>
 </body>
 
 </html>
