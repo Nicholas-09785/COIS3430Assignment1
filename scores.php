@@ -20,7 +20,7 @@ $queriedHard = $pdo->query($queryHard);
 $restart = $_POST['tryAgain'] ?? 0;
 
 if ($restart != 0) {
-    header('Location: difficulty.php');
+    header('Location: difficulty.php'); 
     exit();
 }
 ?>
