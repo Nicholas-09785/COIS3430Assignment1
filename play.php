@@ -54,8 +54,8 @@ if ($ansButton != 0 && strlen($guess) != 0) {
 
     // For loop goes through letters and updates blanks only if user guessed a letter correctly
     for ($i = 0; $i < sizeof($letters); $i++) {
-        if ($partGuess == $letters[$i]) {
-            $_SESSION['blanks'][$i] = $partGuess;
+        if (strtolower($partGuess) == strtolower($letters[$i])) {
+            $_SESSION['blanks'][$i] = strtolower($partGuess);
             $partWrong = false;
             $_SESSION['count']++;
         }
@@ -134,7 +134,7 @@ if ($win || $lose) {
         </div>
     </nav>
     <main>
-        <p>Word: <?= $word['word'] ?> </p>
+        <p>Word: <?= $word['word'] ?> </p> <!-- Part used for testing -->
 
         <!-- Foreach loop showing all the blanks on the page -->
         <p>Word:

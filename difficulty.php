@@ -35,7 +35,7 @@ if ($easy != 0) {
     $word = QueryData($difficulty);    
 } elseif ($hard != 0) {
     $difficulty = "hard";
-    $words = QueryData($difficulty);
+    $word = QueryData($difficulty);
 }
 
 // If word is not null and session objects word, blanks, difficulty, tries, guessed, count, and store don't exists, 
