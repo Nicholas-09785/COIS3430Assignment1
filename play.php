@@ -134,8 +134,6 @@ if ($win || $lose) {
         </div>
     </nav>
     <main>
-        <p>Word: <?= $word['word'] ?> </p> <!-- Part used for testing -->
-
         <!-- Foreach loop showing all the blanks on the page -->
         <p>Word:
             <?php foreach ($_SESSION['blanks'] as $blank) : ?>
