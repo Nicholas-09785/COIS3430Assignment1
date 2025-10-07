@@ -4,11 +4,11 @@ Name(s): Nicholas Petrelli
 
 ## Question 1
 
-Loki Link: [Loki link](https://github.com/COIS-WebDev/assn1-Nicholas-09785)
+Loki Link: [Github](https://github.com/COIS-WebDev/assn1-Nicholas-09785)
 
 ## Question 2
 
-Loki Link: [External link](https://github.com/Nicholas-09785/COIS3430Assignment1)
+Loki Link: [First page](https://loki.trentu.ca/~nicholaspetrelli/3430/assn/Assn1/assn1-Nicholas-09785/start.php)
 
 
 ### Testing
